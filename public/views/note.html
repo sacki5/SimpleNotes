@@ -1,0 +1,16 @@
+
+<div class="sidenav">
+    <img id="logo-sidenav" src="./assets/logo.png">
+    <h2 id="topTitle">Notes</h2>
+    <div class="note" ng-repeat="note in notes" ng-click="setSelected($index)" ng-class="{selected:$index === idSelectedNote}">
+            <h4>{{note.title}}</h4>
+    </div>
+</div>
+<div ng-show="availableNotes" id="noteContainer" class="container">
+    <input class="h2" value="{{notes[idSelectedNote].title}}"></input>
+    <button class="btn btn-primary save">Save</button>
+    <div text-angular ng-model="notes[idSelectedNote].text"></div>
+</div>
+<div ng-hide="availableNotes" id="noteContainer" class="container">
+     <h1>No available notes. Please create a note.</h1>
+</div>

@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans');
+
+$primary-color: #FF4D4D;
+$darkGrey: #4D4D4D;
+$font1: 'Montserrat', sans-serif;
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font1;
+}
+
+.jumbotron {
+    background: $darkGrey;
+    color:white;
+    padding:10%;
+}
+
+.btn {
+    font-family: $font1;
+}
+
+.btn.btn-primary {
+    background: $primary-color;
+    border:none;
+}
+
+.btn.btn-info {
+    border: $primary-color 2px solid;
+    background:none;
+}
+
+.nav {
+    position:absolute;
+    padding:28px 40px 0 40px;
+    width:100%;
+
+    #logo {
+        float:left;
+    }
+
+    #login {
+        float:right;
+        margin-top:5px;
+    }
+
+}
+
+.sidenav {
+    height:100%;
+    left:0;
+    width:250px;
+    background:$darkGrey;
+    padding:10px 0px 200px 0px;
+    min-height:400px;
+    position: absolute;
+    display:none;
+
+    #logo-sidenav {
+        position: absolute;
+        bottom:40px;
+        width:190px;
+    }
+    #topTitle {
+        padding:0 30px;
+        color:white;
+    }
+    .note {
+        border-bottom: solid #616161 1px;
+        padding:10px 30px;
+        p {
+            color:white;
+        }
+        h4 {
+            color:white;
+        }
+    }
+    .note:hover {
+        background:#616161;
+    }
+
+}
+.ta-toolbar .btn {
+    height:35px;
+}
+
+.save {
+    float: right;
+    margin-top: 25px;
+}
+
+#noteContainer {
+    input.h2 {
+        border:none;
+        border-bottom: $primary-color 2px solid;
+    }
+    input.h2:focus {
+        
+        outline:none;
+
+    }
+}
+
+.note.selected {
+    background:#616161;
+}
+
+@media screen and (min-width:960px) {
+    .sidenav{
+        display:block;
+    }
+
+    #noteContainer {
+        margin-left:250px;
+        width:74%;
+    }
+
+
+}
