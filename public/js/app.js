@@ -1,1 +1,12 @@
-angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'NoteCtrl', 'NoteService', 'textAngular']);
+angular.module('sampleApp',
+[
+    'ngRoute',
+    'appRoutes',
+    'MainCtrl',
+    'NoteCtrl',
+    'RegisterCtrl',
+    'LoginCtrl',
+    'NoteService',
+    'UserService',
+    'textAngular'
+]);

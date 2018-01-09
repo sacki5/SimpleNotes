@@ -37,6 +37,15 @@ module.exports = function(app) {
 
     });
 
+    app.post('/register', (req, res) => {
+        res.send(req.body);
+        
+    });
+
+    app.post('/login', (req, res) => {
+        res.send('Hello from user service, login');
+    });
+
     app.get('*', (req, res) => {
         res.sendfile('./public/views/index.html');
     });
