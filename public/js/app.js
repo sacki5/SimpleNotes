@@ -6,7 +6,8 @@ angular.module('sampleApp',
     'NoteCtrl',
     'RegisterCtrl',
     'LoginCtrl',
+    'ProfileCtrl',
     'NoteService',
     'UserService',
-    'textAngular'
+    'textAngular',
 ]);

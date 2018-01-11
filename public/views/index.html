@@ -26,6 +26,7 @@
     <script src="js/controllers/NoteCtrl.js"></script>
     <script src="js/controllers/RegisterCtrl.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/services/NoteService.js"></script>
     <script src="js/services/UserService.js"></script>
     <script src="js/appRoutes.js"></script>
@@ -33,6 +34,11 @@
 
 </head>
 <body ng-app="sampleApp" ng-controller="MainController">
+    <a href="/">Home</a> | 
+    <a href="/register">Register</a> | 
+    <a href="/login">Login</a> | 
+    <a href="/profile">Profile</a> | 
+    <a href="/notes">Notes</a>
     <div ng-view></div>
 </div>
 </body>

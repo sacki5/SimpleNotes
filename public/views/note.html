@@ -10,6 +10,7 @@
     <input class="h2" value="{{notes[idSelectedNote].title}}"></input>
     <button class="btn btn-primary save">Save</button>
     <div text-angular ng-model="notes[idSelectedNote].text"></div>
+    <h6>{{currentUser}}</h6>
 </div>
 <div ng-hide="availableNotes" id="noteContainer" class="container">
      <h1>No available notes. Please create a note.</h1>

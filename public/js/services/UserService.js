@@ -1,4 +1,4 @@
-angular.module('UserService', []).factory('UserService', ['$http', function($http) {     
+angular.module('UserService', []).factory('UserService', ['$http', function($http, $log) {     
 
     return {
         // call to get all nerds
@@ -8,7 +8,11 @@ angular.module('UserService', []).factory('UserService', ['$http', function($htt
 
         loginUser : function(user) {
             return $http.post('/login', user);
-        }
+        },
+
+        updateUser : function(user) {
+            return $http.patch('/updateUser', user);
+        },
     };  
 
 }]);

@@ -1,0 +1,13 @@
+
+<div class="container">
+    <h2>Current user</h2>
+    <h5>{{currentUser}}</h5>
+
+    <form name="updateForm">
+        <input type="text" ng-model="currentUser.username" placeholder="username" class="form-control">
+        <input type="text" ng-model="currentUser.email" placeholder="email" class="form-control">
+        <input type="text" ng-model="currentUser.password" placeholder="password" class="form-control">
+        <button ng-click="updateUser(currentUser)" class="btn btn-primary">Update</button>
+    </form>
+
+</div>

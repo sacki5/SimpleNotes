@@ -9,6 +9,14 @@
             controller: 'MainController'
         })
 
+        .when('/profile', {
+            templateUrl: 'views/profile.html',
+            controller : 'ProfileController',
+            resolve    : {
+              loggedin : checkLoggedIn
+            }
+        })
+
         .when('/notes', {
             templateUrl: 'views/note.html',
             controller: 'NoteController'
@@ -24,7 +32,24 @@
             controller: 'LoginController'
         });
 
-
+    
     $locationProvider.html5Mode(true);
 
 }]);
+
+function checkLoggedIn($q, $http, $location, $rootScope, $log) {
+    var deferred = $q.defer();
+    $http.get('/loggedin')
+    .success(function(user) {
+        if(user != '0') {
+            $rootScope.currentUser = user;
+            deferred.resolve();
+        } else {
+            $rootScope.currentUser = null;
+            deferred.reject();
+            $location.url("/login");   
+        }
+    });
+
+    return deferred.promise;
+}

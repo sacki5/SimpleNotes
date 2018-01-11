@@ -1,7 +1,16 @@
 <div class="container">
     <h1>Login</h1>
-
-    <input ng-model="user.email" class="form-control" placeholder="Email" type="text">
-    <input ng-model="user.password" class="form-control" placeholder="Password" type="password">
-    <button ng-click="login(user)" class="btn btn-primary">Login</button>
-</div>
+    <form name="loginForm">
+            <div class="form-group">
+                <label for="username" class="control-label">Email:</label>
+                <input ng-model="user.username" name="username" id="username" class="form-control" placeholder="Username" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">Password:</label>
+                <input ng-model="user.password" name="password" class="form-control" placeholder="Password" type="password">   
+            </div>
+    
+            <button ng-click="login(user)" class="btn btn-primary">Login</button>
+        </form>
+        {{message}}
+</div> 
