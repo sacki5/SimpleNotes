@@ -5,14 +5,14 @@ const NoteSchema = new mongoose.Schema({
         type: String,
         minlength:1,
         trim: true,
-        default: 'No title',
+        default: 'New note',
     },
     text: {
         type: String,
         trim: true,
     },
     author: {
-        type: Number,
+        type: String,
     },
     createdOn: {
         type: Date,

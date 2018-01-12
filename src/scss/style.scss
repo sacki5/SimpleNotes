@@ -11,6 +11,11 @@ h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $font1;
 }
 
+h5 {
+    font-size: 16px;
+    color:white;
+}
+
 .jumbotron {
     background: $darkGrey;
     color:white;
@@ -63,12 +68,26 @@ h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
         width:190px;
     }
     #topTitle {
-        padding:0 30px;
         color:white;
+        padding: 10px 10px 0 30px;
+        font-size:20px;
+        font-weight: 700;
+        display: inline-block;
+        font-family: $font1;
+    }
+
+    .fa-plus {
+        font-size:20px;
+        color:white;
+    }
+
+    .fa-plus:hover {
+        color:#616161;
+        cursor: pointer;
     }
     .note {
         border-bottom: solid #616161 1px;
-        padding:10px 30px;
+        padding:5px 30px;
         p {
             color:white;
         }
@@ -100,10 +119,22 @@ h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
         outline:none;
 
     }
+
+    .ta-scroll-window.form-control {
+        margin-top:15px;
+    }
+
 }
 
 .note.selected {
     background:#616161;
+}
+
+#userBox {
+    position: fixed;
+    right:20px;
+    bottom:20px;
+    text-align: right;
 }
 
 @media screen and (min-width:960px) {

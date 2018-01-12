@@ -1,17 +1,24 @@
 
 <div class="sidenav">
     <img id="logo-sidenav" src="./assets/logo.png">
-    <h2 id="topTitle">Notes</h2>
+    <p id="topTitle">Notes</p><i ng-click="addNote()" class="fa fa-plus" aria-hidden="true"></i>
+    
+
     <div class="note" ng-repeat="note in notes" ng-click="setSelected($index)" ng-class="{selected:$index === idSelectedNote}">
-            <h4>{{note.title}}</h4>
+            <h5>{{note.title}}</h5>
     </div>
 </div>
 <div ng-show="availableNotes" id="noteContainer" class="container">
-    <input class="h2" value="{{notes[idSelectedNote].title}}"></input>
-    <button class="btn btn-primary save">Save</button>
+    <input class="h2" ng-model="notes[idSelectedNote].title"></input>
+    <button ng-click="updateNote(notes[idSelectedNote])" class="btn btn-primary save">Save</button>
     <div text-angular ng-model="notes[idSelectedNote].text"></div>
-    <h6>{{currentUser}}</h6>
 </div>
 <div ng-hide="availableNotes" id="noteContainer" class="container">
      <h1>No available notes. Please create a note.</h1>
+</div>
+
+<div id="userBox">
+    <h4>Current User: {{currentUser.data.username}}</h4>
+    <a href="/profile"><h4>Edit</h4></a> 
+    
 </div>

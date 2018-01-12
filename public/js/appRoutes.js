@@ -4,7 +4,7 @@
 
         // home page
         
-        .when('/', {
+        .when('/home', {
             templateUrl: 'views/home.html',
             controller: 'MainController'
         })
@@ -13,13 +13,16 @@
             templateUrl: 'views/profile.html',
             controller : 'ProfileController',
             resolve    : {
-              loggedin : checkLoggedIn
+              loggedin : checkLoggedIn,
             }
         })
 
-        .when('/notes', {
-            templateUrl: 'views/note.html',
-            controller: 'NoteController'
+        .when('/', {
+            templateUrl : 'views/note.html',
+            controller  : 'NoteController',
+            resolve     : {
+                loggedin : checkLoggedIn,
+              }
         })
 
         .when('/register', {
@@ -39,17 +42,20 @@
 
 function checkLoggedIn($q, $http, $location, $rootScope, $log) {
     var deferred = $q.defer();
-    $http.get('/loggedin')
-    .success(function(user) {
-        if(user != '0') {
-            $rootScope.currentUser = user;
-            deferred.resolve();
-        } else {
-            $rootScope.currentUser = null;
-            deferred.reject();
-            $location.url("/login");   
-        }
-    });
+    $http.get('/loggedin').then(function(user) {
+            
+            if(user.data != '0') {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                $rootScope.currentUser = null;
+                deferred.reject();
+                $location.url("/home");
+            }
+        }, function(e) {
+            console.log(e);
+        });
+
 
     return deferred.promise;
 }

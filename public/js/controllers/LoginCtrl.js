@@ -7,13 +7,12 @@ angular.module('LoginCtrl', []).controller('LoginController', function($scope, U
             if (data.data !== null)
             {
                 $rootScope.currentUser = data.data;
-                $location.url("/profile");
-            } else
-            {
-                $scope.message = "Email or password is wrong";
+                $location.url("/");
             }
         }, function(e) {
-            console.log(e);
+            if (e.status == 401) {
+                $scope.message = "Email or password is wrong";
+            }
         });
 
 

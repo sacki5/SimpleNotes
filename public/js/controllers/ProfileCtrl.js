@@ -3,9 +3,12 @@ angular.module('ProfileCtrl', []).controller('ProfileController', function($scop
     $scope.updateUser = function(user) {
 
         UserService.updateUser(user).then(function(data) {
-            console.log(data);
+            if(data.data !== 1) {
+                $scope.message = 'Something went wrong';
+            }
+
+            $scope.message = 'User updated';
+            
         });
-
     };
-
 });

@@ -23,42 +23,47 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
-// UserSchema.methods.toJSON = function () {
-//     var user = this;
-//     var userObject = user.toObject();
-//     return _.pick(userObject, ['_id', 'username', 'email']);
-// };
+UserSchema.methods.toJSON = function () {
+    var user = this;
+    var userObject = user.toObject();
+    return _.pick(userObject, ['_id', 'username', 'email']);
+};
 
-// UserSchema.pre('update', function(next) {
-//     var user = this;
-//     console.log(user._update.$set.password);
-//     console.log('pre update');
-    
-//         bcrypt.genSalt(10, (err, salt) => {
-//           bcrypt.hash(user._update.$set.password, salt, (err, hash) => {
-//             user._update.$set.password = hash;
-//             console.log(hash);
-//             next();
-//           });
-//         });
-      
-// });
+UserSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
-// UserSchema.pre('save', function(next) {
-//     var user = this;
-//     console.log('pre save');
-//     if (user.isModified('password')) {
-//         console.log('is modified');
-//         bcrypt.genSalt(10, (err, salt) => {
-//           bcrypt.hash(user.password, salt, (err, hash) => {
-//             user.password = hash;
-//             next();
-//           });
-//         });
-//       } else {
-//         next();
-//       }
-// });
+UserSchema.pre('update', function(next) {
+    var user = this;
+        if(user._update.$set.password) {
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(user._update.$set.password, salt, (err, hash) => {
+                    user._update.$set.password = hash;
+                    return next();
+                });
+            });
+        }
+    next();
+});
+
+
+
+
+UserSchema.pre('save', function(next) {
+    var user = this;
+    console.log('pre save');
+    if (user.isModified('password')) {
+        console.log('is modified');
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(user.password, salt, (err, hash) => {
+            user.password = hash;
+            next();
+          });
+        });
+      } else {
+        next();
+      }
+});
 
  const User = mongoose.model('Users', UserSchema);
 

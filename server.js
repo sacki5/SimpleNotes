@@ -1,3 +1,4 @@
+
 // Config files
 require('./config/config');
 
@@ -9,7 +10,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+const bcrypt = require('bcryptjs');
 
 const { mongoose } = require('./config/mongoose');
 const { Note } = require('./app/models/note');
@@ -18,7 +19,6 @@ const { User} = require('./app/models/user');
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-
 app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'secret'}));
 app.use(cookieParser());
@@ -27,15 +27,24 @@ app.use(passport.session());
 
 
 
-
+// Passport configuration
 passport.use(new LocalStrategy((username, password, done) => {
-    User.findOne({username: username, password: password}, (e, user) => {
-        if(e) { return done(e); }
-        if(!user) { return done(null, false, { message: 'Couldnt find user'}); }
+    console.log(username + ' Called local strategy');
+    
+    User.findOne({ username: username }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) {
+
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+        
+        console.log(username + ' is authorized');
         return done(null, user);
     });
 }));
-
 
 
 passport.serializeUser((user, done) => {
@@ -43,14 +52,19 @@ passport.serializeUser((user, done) => {
 });
 
 
-  passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function(user, done) {
     User.findById(user._id, function(err, user) {
-      done(err, user);
+        done(err, user);
     });
-  });
+});
 
-
+// Note routes
+////////////////////////////////////////////////
 app.get('/notes/:id', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
+
     var id = req.params.id;
 
     Note.find({'author': id}).then((notes) => {
@@ -58,9 +72,16 @@ app.get('/notes/:id', (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+    
+
 });
 
+
 app.get('/note/:id', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
+
     var id = req.params.id;
 
     Note.findById().then((notes) => {
@@ -70,10 +91,13 @@ app.get('/note/:id', (req, res) => {
     });
 });
 
+
 app.post('/notes', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
+
     var note = new Note({
-        title: req.body.title,
-        text: req.body.text,
         author: req.body.author,
     });
 
@@ -82,9 +106,28 @@ app.post('/notes', (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+});
+
+app.patch('/note/:id', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
+    if (req.user._id != req.body.author) {
+        return res.status(401).send('Unauthorized request');
+    }
+    var note = req.body;
+
+    Note.findByIdAndUpdate(note._id, { $set: { title: note.title, createdOn: new Date(), text: note.text}},(err, foundNote) => {
+        if(err) {
+            res.send(e);
+        }
+        res.send(foundNote);
+    });
 
 });
 
+// User routes
+////////////////////////////////////////////////
 app.post('/register', (req, res) => {
     var user = new User(req.body);
 
@@ -105,31 +148,40 @@ app.post('/register', (req, res) => {
 app.post('/login', passport.authenticate("local"), (req, res) => {
     var user = req.body;
 
-    User.findOne({username: user.username, password: user.password}, (e, foundUser) => {
+    User.findOne({username: user.username}, (e, foundUser) => {
         res.json(foundUser);
     });
+
 });
 
 app.patch('/updateUser', (req, res) => {
-    var user = req.body;
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
 
+    var user = req.body;
     User.findById(user._id, (e, foundUser) => {
+        if (e) {
+            return res.send(e);
+        }
         foundUser.update(user, (e, count) => {
-            res.send(count);    
+            if (e) {
+                return res.send(e);
+            }
         });
     });
-
+    res.send('1');    
 });
 
 app.get('/loggedin', (req, res) => {
-    console.log('loggedin calles');
     res.send(req.isAuthenticated() ? req.user : '0');
 });
 
+
+// serve index.html everytime
 app.get('*', (req, res) => {
     res.sendfile('./public/views/index.html');
 });
-
 
 
 app.listen(port, () => {
