@@ -3,15 +3,18 @@
     <img id="logo-sidenav" src="./assets/logo.png">
     <p id="topTitle">Notes</p><i ng-click="addNote()" class="fa fa-plus" aria-hidden="true"></i>
     
-
-    <div class="note" ng-repeat="note in notes" ng-click="setSelected($index)" ng-class="{selected:$index === idSelectedNote}">
+    <div class="noteList">
+        <div class="note" ng-repeat="note in notes" ng-click="setSelected($index)" ng-class="{selected:$index === idSelectedNote}">
+            <i ng-click="deleteNote(note._id)" class="fa fa-trash" aria-hidden="true"></i>    
             <h5>{{note.title}}</h5>
+                
+        </div>
     </div>
 </div>
 <div ng-show="availableNotes" id="noteContainer" class="container">
-    <input class="h2" ng-model="notes[idSelectedNote].title"></input>
-    <button ng-click="updateNote(notes[idSelectedNote])" class="btn btn-primary save">Save</button>
-    <div text-angular ng-model="notes[idSelectedNote].text"></div>
+    <input class="h2" ng-change="updateNote(notes[idSelectedNote])" ng-model="notes[idSelectedNote].title"></input>
+    <div text-angular id="textEditor" ng-change="updateNote(notes[idSelectedNote])" ng-model="notes[idSelectedNote].text"></div>
+    <p>{{savedStatus}}</p>
 </div>
 <div ng-hide="availableNotes" id="noteContainer" class="container">
      <h1>No available notes. Please create a note.</h1>
@@ -20,5 +23,6 @@
 <div id="userBox">
     <h4>Current User: {{currentUser.data.username}}</h4>
     <a href="/profile"><h4>Edit</h4></a> 
+    <a href="#" ng-click="logout()"><h4>Logout</h4></a> 
     
 </div>

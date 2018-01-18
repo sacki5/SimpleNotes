@@ -1,25 +1,29 @@
 
-<div class="container">
-    <h2>Edit user</h2>
+<div class="container formSite">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <a href="/">Back</a>
+            <h2>Edit user</h2>
+            
+            <form name="updateForm">
+                <div class="form-group" ng-class="{'has-error' :updateForm.username.$touched && updateForm.username.$invalid}">
+                    <label for="username" class="control-label">Username:</label> <label ng-show="updateForm.username.$touched && updateForm.username.$invalid" for="username" class="control-label">Please enter a username</label>
+                    <input type="text" ng-model="currentUser.data.username" name="username" id="username" min-length="1" required class="form-control">
+                </div>
 
-    <form name="updateForm">
-        <div class="form-group" ng-class="{'has-error' :updateForm.username.$touched && updateForm.username.$invalid}">
-            <label for="username" class="control-label">Username:</label> <label ng-show="updateForm.username.$touched && updateForm.username.$invalid" for="username" class="control-label">Please enter a username</label>
-            <input type="text" ng-model="currentUser.data.username" name="username" id="username" min-length="1" required class="form-control">
+                <div class="form-group" ng-class="{'has-error' :updateForm.email.$dirty && updateForm.email.$invalid || updateForm.email.$touched && updateForm.email.$invalid}">
+                    <label for="email" class="control-label">Email:</label> <label for="email" ng-show="updateForm.email.$dirty && updateForm.email.$invalid || updateForm.email.$touched && updateForm.email.$invalid" class="control-label">Please enter a valid email</label>
+                    <input type="email" ng-model="currentUser.data.email" name="email" id="email" required class="form-control">
+                </div>
+                
+                <div class="form-group" ng-class="{'has-error' :updateForm.password.$touched && updateForm.password.$invalid || updateForm.password.$dirty && updateForm.password.$invalid}">
+                    <label for="password" class="control-label">Optional new password:</label> <label for="email" ng-show="updateForm.password.$dirty && updateForm.password.$invalid || updateForm.password.$touched && updateForm.password.$invalid" class="control-label">Minimum length 6</label>
+                    <input type="text" ng-model="currentUser.data.password" name="password" placeholder="New password" min-length="6" class="form-control">
+                </div>
+                
+                <button ng-disabled="updateForm.email.$invalid || updateForm.username.$invalid || updateForm.password.$invalid" ng-click="updateUser(currentUser.data)" class="btn btn-primary">Update</button>
+            </form>
+            <p class="text-info">{{message}}</p>
         </div>
-
-        <div class="form-group" ng-class="{'has-error' :updateForm.email.$dirty && updateForm.email.$invalid || updateForm.email.$touched && updateForm.email.$invalid}">
-            <label for="email" class="control-label">Email:</label> <label for="email" ng-show="updateForm.email.$dirty && updateForm.email.$invalid || updateForm.email.$touched && updateForm.email.$invalid" class="control-label">Please enter a valid email</label>
-            <input type="email" ng-model="currentUser.data.email" name="email" id="email" required class="form-control">
-        </div>
-        
-        <div class="form-group" ng-class="{'has-error' :updateForm.password.$touched && updateForm.password.$invalid || updateForm.password.$dirty && updateForm.password.$invalid}">
-            <label for="password" class="control-label">Optional new password:</label> <label for="email" ng-show="updateForm.password.$dirty && updateForm.password.$invalid || updateForm.password.$touched && updateForm.password.$invalid" class="control-label">Minimum length 6</label>
-            <input type="text" ng-model="currentUser.data.password" name="password" placeholder="New password" min-length="6" class="form-control">
-        </div>
-        
-        <button ng-disabled="updateForm.email.$invalid || updateForm.username.$invalid || updateForm.password.$invalid" ng-click="updateUser(currentUser.data)" class="btn btn-primary">Update</button>
-    </form>
-    <p class="text-info">{{message}}</p>
-
+    </div>
 </div>

@@ -7,6 +7,17 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.text-white {
+    color:white;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background:#888;
+}
+
 h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $font1;
 }
@@ -62,6 +73,11 @@ h5 {
     position: absolute;
     display:none;
 
+    .noteList {
+        height:100%;
+        overflow-y: scroll;
+    }
+
     #logo-sidenav {
         position: absolute;
         bottom:40px;
@@ -91,8 +107,15 @@ h5 {
         p {
             color:white;
         }
-        h4 {
+
+        .fa-trash {
+            float:right;
+            margin-top:10px;
+            font-size: 20px;
             color:white;
+        }
+        .fa-trash:hover {
+            color:$primary-color;
         }
     }
     .note:hover {
@@ -135,6 +158,28 @@ h5 {
     right:20px;
     bottom:20px;
     text-align: right;
+}
+
+
+.formSite {
+    background:$primary-color;
+    width:100%;
+    height:100%;
+    padding:50px;
+
+    .col-md-6 {
+        padding:50px;
+        background:white;
+        margin-top:50px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, .2) 0px 5px 10px;
+    }
+}
+
+footer {
+    background:$darkGrey;
+    margin-top:100px;
+    padding:50px;
 }
 
 @media screen and (min-width:960px) {

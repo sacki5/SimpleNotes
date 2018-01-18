@@ -1,9 +1,10 @@
-angular.module('sampleApp',
+angular.module('simpleNotes',
 [
     'ngRoute',
     'appRoutes',
     'MainCtrl',
     'NoteCtrl',
+    '404Ctrl',
     'RegisterCtrl',
     'LoginCtrl',
     'ProfileCtrl',

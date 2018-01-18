@@ -28,19 +28,17 @@ app.use(passport.session());
 
 
 // Passport configuration
-passport.use(new LocalStrategy((username, password, done) => {
-    console.log(username + ' Called local strategy');
-    
-    User.findOne({ username: username }, function (err, user) {
-        if (err) { return done(err); }
+////////////////////////////////////
+passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'},(username, password, done) => {
+    console.log('Local strategy in use' + username);
+    User.findOne({ email: username }, function (err, user) {
+        if (err) { return done(e); }
         if (!user) {
-
-            return done(null, false, { message: 'Incorrect username.' });
+            return done(null, false, { message: 'Incorrect email or password.' });
         }
         if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Incorrect password.' });
+            return done(null, false, { message: 'Incorrect email or password.' });
         }
-        
         console.log(username + ' is authorized');
         return done(null, user);
     });
@@ -50,7 +48,6 @@ passport.use(new LocalStrategy((username, password, done) => {
 passport.serializeUser((user, done) => {
    done(null, user);
 });
-
 
 passport.deserializeUser(function(user, done) {
     User.findById(user._id, function(err, user) {
@@ -123,7 +120,21 @@ app.patch('/note/:id', (req, res) => {
         }
         res.send(foundNote);
     });
+});
 
+app.delete('/note/:id', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.status(401).send('Unauthorized request');
+    }
+
+    var id = req.params.id;
+
+    Note.findByIdAndRemove(id, (err, foundNote) => {
+        if (err) {
+            res.send(e);
+        }
+        res.send(foundNote);
+    });
 });
 
 // User routes
@@ -147,8 +158,7 @@ app.post('/register', (req, res) => {
 
 app.post('/login', passport.authenticate("local"), (req, res) => {
     var user = req.body;
-
-    User.findOne({username: user.username}, (e, foundUser) => {
+    User.findOne({email: user.email}, (e, foundUser) => {
         res.json(foundUser);
     });
 
@@ -175,6 +185,11 @@ app.patch('/updateUser', (req, res) => {
 
 app.get('/loggedin', (req, res) => {
     res.send(req.isAuthenticated() ? req.user : '0');
+});
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
 });
 
 

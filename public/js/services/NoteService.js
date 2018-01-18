@@ -11,8 +11,11 @@ angular.module('NoteService', []).factory('NoteService', ['$http', ($http) => {
         },
 
         patch : function(note) {
-            console.log(note._id);
             return $http.patch('/note/'+note._id, note);
+        },
+
+        delete : function(id) {
+            return $http.delete('/note/' + id);
         }
 
     };       

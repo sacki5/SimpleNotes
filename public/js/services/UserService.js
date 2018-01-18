@@ -7,12 +7,18 @@ angular.module('UserService', []).factory('UserService', ['$http', function($htt
         },
 
         loginUser : function(user) {
+            console.log(user);
             return $http.post('/login', user);
         },
 
         updateUser : function(user) {
             return $http.patch('/updateUser', user);
         },
+
+        logoutUser : function() {
+            return $http.get('/logout');
+        }
+
     };  
 
 }]);

@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function () {
     var user = this;
     var userObject = user.toObject();
-    return _.pick(userObject, ['_id', 'username', 'email']);
+    return _.pick(userObject, ['_id', 'email', 'username']);
 };
 
 UserSchema.methods.validPassword = function(password) {
@@ -45,9 +45,6 @@ UserSchema.pre('update', function(next) {
         }
     next();
 });
-
-
-
 
 UserSchema.pre('save', function(next) {
     var user = this;
