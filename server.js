@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-app.use(session({secret: 'secret'}));
+app.use(session({secret: 'ZsssCrHDg2qKZdENtrBbMao7'}));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
