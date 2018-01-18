@@ -13,8 +13,8 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
 const { mongoose } = require('./config/mongoose');
-const { Note } = require('./app/models/note');
-const { User} = require('./app/models/user');
+const { Note } = require('./models/note');
+const { User} = require('./models/user');
 
 const port = process.env.PORT || 3000;
 
