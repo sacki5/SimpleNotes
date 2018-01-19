@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans');
 
+
+// Variables
+/////////////////////////////
 $primary-color: #FF4D4D;
 $darkGrey: #4D4D4D;
+$grey: #616161; 
 $font1: 'Montserrat', sans-serif;
+
+
+// General 
+/////////////////////////////
 body {
     font-family: 'Open Sans', sans-serif;
     min-width:960px;
@@ -12,12 +20,9 @@ body {
     color:white;
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-thumb {
-    background:#888;
-}
+
+// Typography & Buttons
+/////////////////////////////
 
 h1, h2, h3, h4, h5, h6,.h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: $font1;
@@ -48,6 +53,8 @@ h5 {
     background:none;
 }
 
+// Landing page
+/////////////////////////////
 .nav {
     position:absolute;
     padding:28px 40px 0 40px;
@@ -64,7 +71,10 @@ h5 {
 
 }
 
-.sidenav {
+
+// Notes
+/////////////////////////////
+.sidenav { // Sidenavigation on notes view
     height:100%;
     left:0;
     width:250px;
@@ -73,6 +83,17 @@ h5 {
     min-height:400px;
     position: absolute;
 
+    .note.selected {
+        background:$grey;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background:#888;
+    }
+    
     .noteList {
         height:100%;
         overflow-y: scroll;
@@ -83,6 +104,7 @@ h5 {
         bottom:40px;
         width:190px;
     }
+
     #topTitle {
         color:white;
         padding: 10px 10px 0 30px;
@@ -98,12 +120,14 @@ h5 {
     }
 
     .fa-plus:hover {
-        color:#616161;
+        color:$grey;
         cursor: pointer;
     }
+
     .note {
-        border-bottom: solid #616161 1px;
+        border-bottom: solid $grey 1px;
         padding:5px 30px;
+
         p {
             color:white;
         }
@@ -114,30 +138,25 @@ h5 {
             font-size: 20px;
             color:white;
         }
+
         .fa-trash:hover {
             color:$primary-color;
         }
     }
     .note:hover {
-        background:#616161;
+        background:$grey;
     }
-
-}
-.ta-toolbar .btn {
-    height:35px;
 }
 
-.save {
-    float: right;
-    margin-top: 25px;
-}
-
-
+// Note container is where the selected note is viewed
 #noteContainer {
 
     margin-left:250px;
     width:74%;
 
+    .ta-toolbar .btn {
+        height:35px;
+    }
     input.h2 {
         border:none;
         border-bottom: $primary-color 2px solid;
@@ -154,10 +173,8 @@ h5 {
 
 }
 
-.note.selected {
-    background:#616161;
-}
-
+// Userbox is the small box with user information in notes view
+/////////////////////////////
 #userBox {
     position: fixed;
     right:20px;
@@ -165,7 +182,9 @@ h5 {
     text-align: right;
 }
 
-
+// FormSite is for the views with forms
+// Login, Register, Profile
+/////////////////////////////
 .formSite {
     background:$primary-color;
     width:100%;
@@ -182,6 +201,9 @@ h5 {
     }
 }
 
+
+// Footer
+/////////////////////////////
 footer {
     background:$darkGrey;
     margin-top:100px;

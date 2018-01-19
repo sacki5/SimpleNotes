@@ -51,6 +51,7 @@
 
 }]);
 
+// Function wich checks if the stored passport cookie is valid. If not it refers them to home
 function checkLoggedIn($q, $http, $location, $rootScope, $log) {
     var deferred = $q.defer();
     $http.get('/loggedin').then(function(user) {
@@ -71,6 +72,7 @@ function checkLoggedIn($q, $http, $location, $rootScope, $log) {
     return deferred.promise;
 }
 
+// Opposite from checkLoggedIn. Uses to prevent logged user from login in again. 
 function checkLoggedOut($q, $http, $location, $rootScope, $log) {
     var deferred = $q.defer();
     $http.get('/loggedin').then(function(user) {
