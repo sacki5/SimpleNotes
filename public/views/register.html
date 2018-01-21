@@ -6,15 +6,15 @@
             <h1>Register</h1>
             <form name="registerForm">
                 <div class="form-group" ng-class="{'has-error' :registerForm.username.$touched && registerForm.username.$invalid}">
-                    <label for="username" class="control-label">Username:</label> <label ng-show="registerForm.username.$touched && registerForm.username.$invalid" for="username" class="control-label">Please enter a username</label>
+                    <label for="username" class="control-label"></label> <label ng-show="registerForm.username.$touched && registerForm.username.$invalid" for="username" class="control-label">Please enter a username</label>
                     <input ng-model="user.username" name="username" id="username" class="form-control" placeholder="Username" type="text" required minlength="1">
                 </div>
                 <div class="form-group" ng-class="{'has-error' :registerForm.email.$dirty && registerForm.email.$invalid || registerForm.email.$touched && registerForm.email.$invalid}">
-                    <label for="email" class="control-label">Email:</label> <label for="email" ng-show="registerForm.email.$dirty && registerForm.email.$invalid || registerForm.email.$touched && registerForm.email.$invalid" class="control-label">Please enter a valid email</label>
+                    <label for="email" class="control-label"></label> <label for="email" ng-show="registerForm.email.$dirty && registerForm.email.$invalid || registerForm.email.$touched && registerForm.email.$invalid" class="control-label">Please enter a valid email</label>
                     <input ng-model="user.email" name="email" id="email" class="form-control" placeholder="Email" type="email" required>
                 </div>
                 <div class="form-group" ng-class="{'has-error' :registerForm.password.$touched && registerForm.password.$invalid || registerForm.password.$dirty && registerForm.password.$invalid}">
-                    <label for="password" class="control-label">Password:</label> <label for="email" ng-show="registerForm.password.$dirty && registerForm.password.$invalid || registerForm.password.$touched && registerForm.password.$invalid" class="control-label">Minimum length 6</label>
+                    <label for="password" class="control-label"></label> <label for="email" ng-show="registerForm.password.$dirty && registerForm.password.$invalid || registerForm.password.$touched && registerForm.password.$invalid" class="control-label">Minimum length 6</label>
                     <input ng-model="user.password" name="password" class="form-control" required min-length="6" placeholder="Password" type="password">   
                 </div>
 

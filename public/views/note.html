@@ -7,7 +7,6 @@
         <div class="note" ng-repeat="note in notes" ng-click="setSelected($index)" ng-class="{selected:$index === idSelectedNote}">
             <i ng-click="deleteNote(note._id)" class="fa fa-trash" aria-hidden="true"></i>    
             <h5>{{note.title}}</h5>
-                
         </div>
     </div>
 </div>
@@ -24,5 +23,4 @@
     <h4>Current User: {{currentUser.data.username}}</h4>
     <a href="/profile"><h4>Edit</h4></a> 
     <a href="#" ng-click="logout()"><h4>Logout</h4></a> 
-    
 </div>

@@ -1,4 +1,4 @@
-// Controller for view 404.html
+// Controller for view 404.html         
 angular.module('404Ctrl', []).controller('404Controller', function($scope, $location, $rootScope) {
 
     $scope.path = $location.path(); // Current url. 

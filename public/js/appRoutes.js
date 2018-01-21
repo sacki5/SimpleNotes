@@ -9,19 +9,11 @@
             controller  : 'MainController'
         })
 
-        .when('/profile', {
-            templateUrl : 'views/profile.html',
-            controller  : 'ProfileController',
+        .when('/login', {
+            templateUrl : 'views/login.html',
+            controller  : 'LoginController',
             resolve     : {
-                loggedin: checkLoggedIn,
-            }
-        })
-
-        .when('/', {
-            templateUrl : 'views/note.html',
-            controller  : 'NoteController',
-            resolve     : {
-                loggedin: checkLoggedIn,
+                loggedout : checkLoggedOut,
             }
         })
 
@@ -33,13 +25,26 @@
             }
         })
 
-        .when('/login', {
-            templateUrl : 'views/login.html',
-            controller  : 'LoginController',
+        .when('/', {
+            templateUrl : 'views/note.html',
+            controller  : 'NoteController',
             resolve     : {
-                loggedout : checkLoggedOut,
+                loggedin: checkLoggedIn,
             }
         })
+
+
+        .when('/profile', {
+            templateUrl : 'views/profile.html',
+            controller  : 'ProfileController',
+            resolve     : {
+                loggedin: checkLoggedIn,
+            }
+        })
+
+        
+        
+
         
         .otherwise({
             controller  : '404Controller',

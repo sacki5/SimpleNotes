@@ -6,22 +6,26 @@ angular.module('NoteCtrl', []).controller('NoteController', function($scope, Not
     $scope.availableNotes = true; // Variable if notes is availeble
 
     // Function takes user ID and return users notes. 
-    NoteService.get($scope.currentUser.data._id).then(function(data) {
-        if (data.data.notes.length === 0) { // IF no notes returns function and set availableNOtes false.
-            $scope.availableNotes = false;
-            return;
-        }
-        $scope.notes = data.data.notes; // If notes found binds notes to scope. 
-    }, function(e) {
-        console.log(e); // Collects errors. 
-    });
+    var getNotes = function() {
+        NoteService.get($scope.currentUser.data._id).then(function(data) {
+            if (data.data.notes.length === 0) { // IF no notes returns function and set availableNOtes false.
+                $scope.availableNotes = false;
+                return;
+            }
+            $scope.notes = data.data.notes.slice().reverse(); // If notes found binds notes to scope. 
+        }, function(e) {
+            console.log(e); // Collects errors. 
+        });
+    };
+   
+    getNotes(); // Runs getNotes function
      
     // Function adds new note. Takes no arguments. 
     $scope.addNote = function() {
         var note = {};
         note.author = $scope.currentUser.data._id;
         NoteService.post(note).then(function(data) {
-            $route.reload(); // If succes relouds the list. 
+            getNotes(); // If succes reloads the list. 
         }, function(e) {
             console.log(e); // Collects error
         });
@@ -43,11 +47,20 @@ angular.module('NoteCtrl', []).controller('NoteController', function($scope, Not
 
     // Function to delete note. Takes note ID
     $scope.deleteNote = function(id) {
+        
         NoteService.delete(id).then(function(data) {
-            $route.reload(); // Reloads the note id success
+            getNotes(); // If succes reloads the list. 
+
+            console.log(id + '-' + $scope.notes[$scope.idSelectedNote]._id);
+            if($scopes.notes[$scope.idSelectedNote] == id) {
+                console.log('your viewing the note you deleted');
+            }
+
+
         }, function(e) {
             console.log(e); // Collects error
         });
+
     };
 
     // Logout function from UserService
@@ -59,6 +72,9 @@ angular.module('NoteCtrl', []).controller('NoteController', function($scope, Not
             console.log(e); // Collects error
         });
     }
+
+    
+      
 
     $scope.idSelectedNote = 0; // Starts with the first note as selected. 
     // Set selected note to know wich note to view in full. 

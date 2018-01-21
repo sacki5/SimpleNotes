@@ -7,10 +7,13 @@ require('./config/config');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+
 const bcrypt = require('bcryptjs');
 
 const { mongoose } = require('./config/mongoose');

@@ -161,10 +161,9 @@ h5 {
         border:none;
         border-bottom: $primary-color 2px solid;
     }
-    input.h2:focus {
-        
-        outline:none;
 
+    input.h2:focus {
+        outline:none;
     }
 
     .ta-scroll-window.form-control {
@@ -196,8 +195,19 @@ h5 {
         padding:50px;
         background:white;
         margin-top:50px;
-        border-radius: 10px;
         box-shadow: rgba(0, 0, 0, .2) 0px 5px 10px;
+    }
+    input.form-control {
+        box-shadow: none;
+        border-radius: 0;
+        border:none;
+        border-bottom: 2px solid $primary-color;
+    }
+    input.form-control:focus {
+        box-shadow: none;
+        border-radius: 0;
+        border:none;
+        border-bottom: 3px solid $primary-color;
     }
 }
 
